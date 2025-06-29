@@ -1,3 +1,22 @@
-Linux 
-;lsmdfclksdnfsjdnf
-xcmcv mv 
+1.Linux
+Linux is an operating system that is widely used across different types of devices like servers and computers
+It’s actually based on Unix and is open-source, which means anyone can look at its code, use it for free, and even modify it if they want
+Linux is very stable and secure, which is why companies prefer using it for their servers.
+there are many distribution of Linux, such as Ubuntu, Fedora, Debian etc
+
+
+2.Kernel
+The kernel is basically the heart of the Linux operating system. It's a program that runs in the background and manages the communication between the hardware and the software.
+Some main jobs of the kernel include:
+i)  Controlling how memory is used
+ii) Managing processes that are running
+iii)Handling input and output from devices
+
+
+3. Boot Procedure 
+When you turn on a computer that runs Linux, a lot of things happen before you see the login screen. This is known as the boot process.
+
+Various Steps for the boot procedure are
+BIOS : This is the first thing that runs. It checks the hardware and then looks for something to boot from, like a hard disk or USB.
+Bootloader : The bootloader is a small program that loads the Linux kernel.
+Kernel: Once the kernel is loaded, it takes over and starts setting things up – like memory, CPU, and devices. Then it looks for the root filesystem.
