@@ -1,0 +1,68 @@
+
+                                                                             List Files in a Directory
+
+#!/bin/bash
+
+# Check if directory path is provided
+if [ -z "$1" ]; then
+    echo "Usage: $0 <directory_path>"
+    exit 1
+fi
+
+# Check if the argument is a directory
+if [ -d "$1" ]; then
+    echo "Files in directory $1:"
+    ls -p "$1" | grep -v /
+else
+    echo "Error: $1 is not a valid directory."
+    exit 1
+fi
+
+                                                                             Rename .txt Files with "backup_" 
+
+if [ ! -d "$1" ]; then
+    echo "Error: $1 is not a valid directory."
+    exit 1
+fi
+
+# Rename .txt files
+for file in "$1"/*.txt; do
+    [ -e "$file" ] || continue  # Skip if no .txt files
+    base=$(basename "$file")
+    mv "$file" "$1/backup_$base"
+done
+
+echo "Renaming completed."
+
+
+
+
+
+
+                                                                                   Compare Two Files
+
+
+#!/bin/bash
+
+# Check if two file paths are given
+if [ $# -ne 2 ]; then
+    echo "Usage: $0 <file1> <file2>"
+    exit 1
+fi
+
+# Check if files exist
+if [ ! -f "$1" ] || [ ! -f "$2" ]; then
+    echo "One or both files do not exist."
+    exit 1
+fi
+
+# Compare files
+if cmp -s "$1" "$2"; then
+    echo "The files are identical."
+else
+    echo "The files are different. Differences:"
+    diff "$1" "$2"
+fi
+
+
+
