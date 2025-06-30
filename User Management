@@ -1,0 +1,33 @@
+
+                                                                                         Add a new user 
+
+
+#!/bin/bash
+
+
+USERNAME="$1"
+HOMEDIR="$2"
+PASSWORD="$3"
+
+useradd -m -d "$HOMEDIR" "$USERNAME"
+echo "$USERNAME:$PASSWORD" | chpasswd
+echo "User $USERNAME created with home directory $HOMEDIR"
+
+
+
+                                                                                     Check Password Strength
+
+
+
+#!/bin/bash
+
+PASSWORD="$1"
+echo "$PASSWORD" | grep -Eq '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\W_]).{8,}' && \
+echo "Strong password" || echo "Weak password"
+
+
+                                                                          List All Users and Their Last Login Time
+
+#!/bin/bash
+
+cut -d: -f1,3 /etc/passwd | awk -F: '$2 >= 1000 {print $1}' | xargs -n1 lastlog -u
