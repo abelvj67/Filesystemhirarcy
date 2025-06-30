@@ -1,0 +1,45 @@
+                                                                                                  System Information
+
+
+#!/bin/bash
+
+echo "Operating System: $(uname -o)"
+echo "Kernel Version: $(uname -r)"
+echo "CPU Info:"
+lscpu | grep "Model name"
+echo "Available Memory:"
+free -h | grep "Mem:"
+
+
+                                                                                              Check and Start Process
+
+
+#!/bin/bash
+
+PROCESS_NAME="your_process_here"
+
+if pgrep "$PROCESS_NAME" > /dev/null; then
+    echo "$PROCESS_NAME is already running."
+else
+    echo "$PROCESS_NAME is not running. Starting it..."
+    "$PROCESS_NAME" &  
+fi
+
+                                                                                       Disk Usage Monitor with Email Alert
+
+
+
+
+!/bin/bash
+
+# Set partition and threshold
+PARTITION="/"
+THRESHOLD=80
+
+# Get usage percent without the % sign
+USAGE=$(df "$PARTITION" | awk 'NR==2 {gsub("%",""); print $5}')
+
+if [ "$USAGE" -gt "$THRESHOLD" ]; then
+    echo "Disk usage on $PARTITION is ${USAGE}% – over threshold of ${THRESHOLD}%" | \
+    mail -s "Disk Space Alert" your@email.com
+fi
