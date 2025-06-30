@@ -1,0 +1,47 @@
+                                                                             Sum a Specific CSV Column
+
+#!/bin/bash
+
+FILE="$1"
+COL="$2"
+
+if [ ! -f "$FILE" ]; then
+    echo "File not found!"
+    exit 1
+fi
+
+awk -F',' -v col="$COL" '{sum += $col} END {print "Sum:", sum}' "$FILE"
+
+
+
+                                                                         Extract Frequent IPs from Log File
+
+
+#!/bin/bash
+
+LOGFILE="$1"
+THRESHOLD="$2"
+
+if [ ! -f "$LOGFILE" ]; then
+    echo "Log file not found!"
+    exit 1
+fi
+
+awk '{print $1}' "$LOGFILE" | sort | uniq -c | awk -v t="$THRESHOLD" '$1 > t {print $2, "made", $1, "requests"}'
+
+
+
+                                                                     Word Frequency in a Sentence
+bash
+Copy
+Edit
+
+
+#!/bin/bash
+
+# Read sentence from user
+echo "Enter a sentence:"
+read sentence
+
+# Process words and count
+echo "$sentence" | tr '[:space:]' '\n' | tr -d '[:punct:]' | grep -v '^$' | sort | uniq -c
