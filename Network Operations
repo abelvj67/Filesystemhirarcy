@@ -1,0 +1,70 @@
+
+                                                       SSH Reachability for Multiple Servers
+
+#!/bin/bash
+
+
+FILE="$1"
+
+if [ ! -f "$FILE" ]; then
+    echo "Server list not found!"
+    exit 1
+fi
+
+while read -r server; do
+    echo "Checking SSH on $server..."
+    if ssh -o BatchMode=yes -o ConnectTimeout=5 "$server" exit 2>/dev/null; then
+        echo "$server is reachable via SSH"
+    else
+        echo "$server is NOT reachable via SSH"
+    fi
+done < "$FILE"
+
+
+                                              Ping IPs and Report Average Response Time
+
+#!/bin/bash
+
+
+FILE="$1"
+
+if [ ! -f "$FILE" ]; then
+    echo "IP list not found!"
+    exit 1
+fi
+
+while read -r ip; do
+    echo "Pinging $ip..."
+    avg=$(ping -c 4 "$ip" | grep 'rtt' | awk -F'/' '{print $5}')
+    if [ -n "$avg" ]; then
+        echo "$ip average response time: ${avg} ms"
+    else
+        echo "$ip is unreachable"
+    fi
+done < "$FILE"
+
+
+
+                                                                       Website Status with HTTP Request
+
+
+
+
+#!/bin/bash
+
+
+URL="$1"
+
+if [ -z "$URL" ]; then
+    echo "Usage: $0 <website_url>"
+    exit 1
+fi
+
+status=$(curl -s -o /dev/null -w "%{http_code}" "$URL")
+
+if [ "$status" -eq 200 ]; then
+    echo "$URL is UP"
+else
+    echo "$URL is DOWN (Status Code: $status)"
+fi
+
