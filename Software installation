@@ -1,0 +1,25 @@
+#!/bin/bash
+
+if [ -f /etc/os-release ]; then
+    . /etc/os-release
+    DISTRO=$ID
+else
+    echo "Unable to detect OS" >&2
+    exit 1
+fi
+
+
+case "$DISTRO" in
+    debian|ubuntu)
+        sudo apt update
+        sudo apt install -y curl
+        ;;
+    rhel|centos|fedora)
+        sudo dnf install -y curl
+        ;;
+    
+    *)
+        echo "Distro not identified" >&2
+        exit 1
+        ;;
+esac
